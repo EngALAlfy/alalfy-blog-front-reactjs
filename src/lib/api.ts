@@ -1,4 +1,3 @@
-
 const API_BASE_URL = 'https://blog-backend.alalfy.com/api';
 
 export interface Author {
@@ -101,6 +100,18 @@ export const apiService = {
       return result.data;
     } catch (error) {
       console.error('Error fetching all categories:', error);
+      throw error;
+    }
+  },
+
+  async fetchPostsByCategories(): Promise<Post[]> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/posts/categories`);
+      if (!response.ok) throw new Error('Failed to fetch posts by categories');
+      const result: ApiResponse<Post> = await response.json();
+      return result.data;
+    } catch (error) {
+      console.error('Error fetching posts by categories:', error);
       throw error;
     }
   },

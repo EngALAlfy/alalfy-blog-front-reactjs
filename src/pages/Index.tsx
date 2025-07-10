@@ -4,11 +4,14 @@ import { apiService, Post } from '@/lib/api';
 import HeroSection from '@/components/HeroSection';
 import PostCard from '@/components/PostCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import HireMeSection from '@/components/HireMeSection';
+import CategoryPostsSection from '@/components/CategoryPostsSection';
 
 const Index = () => {
   const [heroPosts, setHeroPosts] = useState<Post[]>([]);
   const [featuredPosts, setFeaturedPosts] = useState<Post[]>([]);
   const [latestPosts, setLatestPosts] = useState<Post[]>([]);
+  const [categoryPosts, setCategoryPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,15 +19,17 @@ const Index = () => {
     const loadData = async () => {
       try {
         setLoading(true);
-        const [heroData, featuredData, latestData] = await Promise.all([
+        const [heroData, featuredData, latestData, categoryData] = await Promise.all([
           apiService.fetchHeroPosts(),
           apiService.fetchFeaturedPosts(),
-          apiService.fetchLatestPosts()
+          apiService.fetchLatestPosts(),
+          apiService.fetchPostsByCategories()
         ]);
 
         setHeroPosts(heroData);
         setFeaturedPosts(featuredData);
         setLatestPosts(latestData);
+        setCategoryPosts(categoryData);
       } catch (err) {
         setError('فشل في تحميل المقالات. يرجى المحاولة مرة أخرى.');
         console.error('Error loading data:', err);
@@ -35,6 +40,19 @@ const Index = () => {
 
     loadData();
   }, []);
+
+  // Group posts by category
+  const groupedPosts = categoryPosts.reduce((acc, post) => {
+    const categorySlug = post.category.slug;
+    if (!acc[categorySlug]) {
+      acc[categorySlug] = {
+        category: post.category,
+        posts: []
+      };
+    }
+    acc[categorySlug].posts.push(post);
+    return acc;
+  }, {} as Record<string, { category: any; posts: Post[] }>);
 
   if (error) {
     return (
@@ -73,8 +91,18 @@ const Index = () => {
           )}
         </section>
 
+        {/* Category Posts Sections */}
+        {!loading && Object.entries(groupedPosts).map(([categorySlug, { category, posts }]) => (
+          <CategoryPostsSection
+            key={categorySlug}
+            categoryName={category.name}
+            categorySlug={categorySlug}
+            posts={posts}
+          />
+        ))}
+
         {/* Latest Posts */}
-        <section>
+        <section className="mb-16">
           <h2 className="text-3xl font-bold text-foreground mb-8 font-cairo">أحدث المقالات</h2>
           {loading ? (
             <LoadingSpinner />
@@ -86,6 +114,9 @@ const Index = () => {
             </div>
           )}
         </section>
+
+        {/* Hire Me Section */}
+        <HireMeSection />
       </div>
     </div>
   );

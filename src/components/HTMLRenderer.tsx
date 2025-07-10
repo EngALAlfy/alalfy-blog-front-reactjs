@@ -1,8 +1,6 @@
 
 import { useEffect, useRef } from 'react';
 import DOMPurify from 'dompurify';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface HTMLRendererProps {
   content: string;
@@ -24,26 +22,39 @@ const HTMLRenderer = ({ content, className = '' }: HTMLRendererProps) => {
     
     codeBlocks.forEach((block) => {
       if (block.parentElement?.tagName === 'PRE') {
-        // This is a code block
+        // This is a code block - escape HTML and prevent rendering
         const code = block.textContent || '';
         const language = block.className.match(/language-(\w+)/)?.[1] || 'javascript';
         
         const wrapper = document.createElement('div');
         wrapper.className = 'my-4 direction-ltr';
         
-        // Create a temporary container for React rendering
-        const tempContainer = document.createElement('div');
+        // Escape HTML entities to prevent rendering
+        const escapedCode = code
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#x27;');
+        
         block.parentElement?.parentNode?.insertBefore(wrapper, block.parentElement);
         block.parentElement?.remove();
         
-        // We'll handle this with a simpler approach - just add proper styling
+        // Create styled code block with escaped content
         wrapper.innerHTML = `
-          <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto direction-ltr text-left">
-            <code class="font-mono text-sm">${code}</code>
+          <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto direction-ltr text-left font-mono text-sm leading-relaxed">
+            <code class="language-${language}">${escapedCode}</code>
           </pre>
         `;
       } else {
-        // This is inline code
+        // This is inline code - escape content
+        const code = block.textContent || '';
+        const escapedCode = code
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+        
+        block.innerHTML = escapedCode;
         block.className = 'bg-muted px-2 py-1 rounded text-sm font-mono direction-ltr';
       }
     });

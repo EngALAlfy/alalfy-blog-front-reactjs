@@ -23,18 +23,23 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="text-2xl font-bold mb-4">Alalfy Blog</h3>
-            <p className="text-gray-300 mb-4">
-              Discover the latest articles, insights, and stories from our community of writers and thought leaders.
+    <footer className="bg-gray-900 text-white font-cairo">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-1">
+            <div className="flex items-center space-x-3 space-x-reverse mb-4">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
+                <span className="text-primary-foreground font-bold text-xl font-amiri">ع</span>
+              </div>
+              <h3 className="text-xl lg:text-2xl font-bold font-amiri">ALALFY DEV.</h3>
+            </div>
+            <p className="text-gray-300 mb-4 leading-relaxed">
+              اكتشف أحدث المقالات والرؤى والقصص من مجتمعنا من الكتاب وقادة الفكر في عالم التقنية والبرمجة.
             </p>
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4">Categories</h4>
+            <h4 className="text-lg font-semibold mb-4 font-cairo">الأقسام</h4>
             {loading ? (
               <div className="space-y-2">
                 <div className="h-4 bg-gray-700 rounded animate-pulse"></div>
@@ -47,7 +52,7 @@ const Footer = () => {
                   <Link
                     key={category.id}
                     to={`/category/${category.slug}`}
-                    className="block text-gray-300 hover:text-white transition-colors"
+                    className="block text-gray-300 hover:text-white transition-colors py-1"
                   >
                     {category.name}
                   </Link>
@@ -57,19 +62,22 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-lg font-semibold mb-4 font-cairo">روابط سريعة</h4>
             <div className="space-y-2">
-              <Link to="/" className="block text-gray-300 hover:text-white transition-colors">
-                Home
+              <Link to="/" className="block text-gray-300 hover:text-white transition-colors py-1">
+                الرئيسية
               </Link>
-              <a href="#" className="block text-gray-300 hover:text-white transition-colors">
-                About Us
+              <a href="#" className="block text-gray-300 hover:text-white transition-colors py-1">
+                من نحن
               </a>
-              <a href="#" className="block text-gray-300 hover:text-white transition-colors">
-                Contact
+              <a href="#" className="block text-gray-300 hover:text-white transition-colors py-1">
+                اتصل بنا
               </a>
-              <a href="#" className="block text-gray-300 hover:text-white transition-colors">
-                Privacy Policy
+              <a href="#" className="block text-gray-300 hover:text-white transition-colors py-1">
+                سياسة الخصوصية
+              </a>
+              <a href="#" className="block text-gray-300 hover:text-white transition-colors py-1">
+                شروط الاستخدام
               </a>
             </div>
           </div>
@@ -77,7 +85,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
           <p className="text-gray-300">
-            © {new Date().getFullYear()} Alalfy Blog. All rights reserved.
+            © {new Date().getFullYear()} ALALFY DEV. جميع الحقوق محفوظة.
           </p>
         </div>
       </div>

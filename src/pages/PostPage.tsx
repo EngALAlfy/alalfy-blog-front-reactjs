@@ -51,9 +51,9 @@ const PostPage = () => {
 
   if (error || !post) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-foreground mb-4 font-cairo">المقال غير موجود</h2>
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="text-center max-w-md">
+          <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4 font-cairo">المقال غير موجود</h2>
           <p className="text-muted-foreground mb-6">المقال الذي تبحث عنه غير متوفر.</p>
           <Link
             to="/"
@@ -67,18 +67,18 @@ const PostPage = () => {
   }
 
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-cairo" dir="rtl">
+    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8 font-cairo" dir="rtl">
       {/* Back Button */}
       <Link
         to="/"
-        className="inline-flex items-center space-x-2 space-x-reverse text-primary hover:text-primary/80 mb-8 font-medium"
+        className="inline-flex items-center space-x-2 space-x-reverse text-primary hover:text-primary/80 mb-6 lg:mb-8 font-medium"
       >
         <ArrowRight className="h-4 w-4" />
         <span>العودة للرئيسية</span>
       </Link>
 
       {/* Post Header */}
-      <header className="mb-8">
+      <header className="mb-6 lg:mb-8">
         <div className="flex items-center space-x-4 space-x-reverse mb-4">
           <Link
             to={`/category/${post.category.slug}`}
@@ -88,20 +88,20 @@ const PostPage = () => {
           </Link>
         </div>
         
-        <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight font-amiri">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-4 lg:mb-6 leading-tight font-amiri">
           {post.title}
         </h1>
         
-        <div className="flex items-center space-x-6 space-x-reverse text-muted-foreground mb-8">
+        <div className="flex items-center space-x-4 space-x-reverse text-muted-foreground mb-6 lg:mb-8">
           <div className="flex items-center space-x-3 space-x-reverse">
             <img
               src={post.author.avatar}
               alt={post.author.name}
-              className="w-12 h-12 rounded-full object-cover"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover flex-shrink-0"
             />
-            <div>
-              <p className="font-semibold text-foreground">{post.author.name}</p>
-              <p className="text-sm">{post.author.email}</p>
+            <div className="mr-3">
+              <p className="font-semibold text-foreground text-sm sm:text-base">{post.author.name}</p>
+              <p className="text-xs sm:text-sm">{post.author.email}</p>
             </div>
           </div>
         </div>
@@ -109,13 +109,13 @@ const PostPage = () => {
         <img
           src={post.banner}
           alt={post.title}
-          className="w-full h-64 lg:h-96 object-cover rounded-lg shadow-lg mb-8"
+          className="w-full h-48 sm:h-64 lg:h-80 xl:h-96 object-cover rounded-lg shadow-lg mb-6 lg:mb-8"
         />
       </header>
 
       {/* Post Content */}
-      <div className="mb-8">
-        <div className="text-xl text-muted-foreground mb-8 leading-relaxed font-amiri">
+      <div className="mb-8 lg:mb-12">
+        <div className="text-lg lg:text-xl text-muted-foreground mb-6 lg:mb-8 leading-relaxed font-amiri">
           {post.short_description}
         </div>
         
@@ -126,16 +126,16 @@ const PostPage = () => {
       </div>
 
       {/* Author Info */}
-      <div className="mt-12 p-6 bg-muted rounded-lg">
+      <div className="mt-8 lg:mt-12 p-4 lg:p-6 bg-muted rounded-lg">
         <div className="flex items-center space-x-4 space-x-reverse">
           <img
             src={post.author.avatar}
             alt={post.author.name}
-            className="w-16 h-16 rounded-full object-cover"
+            className="w-12 h-12 lg:w-16 lg:h-16 rounded-full object-cover flex-shrink-0"
           />
-          <div>
-            <h3 className="text-xl font-semibold text-foreground font-cairo">{post.author.name}</h3>
-            <p className="text-muted-foreground">{post.author.email}</p>
+          <div className="mr-4">
+            <h3 className="text-lg lg:text-xl font-semibold text-foreground font-cairo">{post.author.name}</h3>
+            <p className="text-muted-foreground text-sm lg:text-base">{post.author.email}</p>
           </div>
         </div>
       </div>

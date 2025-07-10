@@ -1,9 +1,10 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, User, ArrowLeft } from 'lucide-react';
+import { ArrowRight, Calendar, User } from 'lucide-react';
 import { apiService, Post } from '@/lib/api';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import HTMLRenderer from '@/components/HTMLRenderer';
 
 const PostPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -52,13 +53,13 @@ const PostPage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Post Not Found</h2>
-          <p className="text-gray-600 mb-6">The post you're looking for doesn't exist.</p>
+          <h2 className="text-2xl font-bold text-foreground mb-4 font-cairo">المقال غير موجود</h2>
+          <p className="text-muted-foreground mb-6">المقال الذي تبحث عنه غير متوفر.</p>
           <Link
             to="/"
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors font-cairo"
           >
-            Back to Home
+            العودة للرئيسية
           </Link>
         </div>
       </div>
@@ -66,40 +67,40 @@ const PostPage = () => {
   }
 
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-cairo" dir="rtl">
       {/* Back Button */}
       <Link
         to="/"
-        className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800 mb-8"
+        className="inline-flex items-center space-x-2 space-x-reverse text-primary hover:text-primary/80 mb-8 font-medium"
       >
-        <ArrowLeft className="h-4 w-4" />
-        <span>Back to Home</span>
+        <ArrowRight className="h-4 w-4" />
+        <span>العودة للرئيسية</span>
       </Link>
 
       {/* Post Header */}
       <header className="mb-8">
-        <div className="flex items-center space-x-4 mb-4">
+        <div className="flex items-center space-x-4 space-x-reverse mb-4">
           <Link
             to={`/category/${post.category.slug}`}
-            className="text-sm font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full hover:bg-blue-200 transition-colors"
+            className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full hover:bg-primary/20 transition-colors"
           >
             {post.category.name}
           </Link>
         </div>
         
-        <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+        <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight font-amiri">
           {post.title}
         </h1>
         
-        <div className="flex items-center space-x-6 text-gray-600 mb-8">
-          <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-6 space-x-reverse text-muted-foreground mb-8">
+          <div className="flex items-center space-x-3 space-x-reverse">
             <img
               src={post.author.avatar}
               alt={post.author.name}
               className="w-12 h-12 rounded-full object-cover"
             />
             <div>
-              <p className="font-semibold text-gray-900">{post.author.name}</p>
+              <p className="font-semibold text-foreground">{post.author.name}</p>
               <p className="text-sm">{post.author.email}</p>
             </div>
           </div>
@@ -113,28 +114,28 @@ const PostPage = () => {
       </header>
 
       {/* Post Content */}
-      <div className="prose prose-lg max-w-none">
-        <div className="text-xl text-gray-600 mb-8 leading-relaxed">
+      <div className="mb-8">
+        <div className="text-xl text-muted-foreground mb-8 leading-relaxed font-amiri">
           {post.short_description}
         </div>
         
-        <div
-          className="text-gray-800 leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: post.description }}
+        <HTMLRenderer 
+          content={post.description}
+          className="text-foreground leading-relaxed font-amiri"
         />
       </div>
 
       {/* Author Info */}
-      <div className="mt-12 p-6 bg-gray-50 rounded-lg">
-        <div className="flex items-center space-x-4">
+      <div className="mt-12 p-6 bg-muted rounded-lg">
+        <div className="flex items-center space-x-4 space-x-reverse">
           <img
             src={post.author.avatar}
             alt={post.author.name}
             className="w-16 h-16 rounded-full object-cover"
           />
           <div>
-            <h3 className="text-xl font-semibold text-gray-900">{post.author.name}</h3>
-            <p className="text-gray-600">{post.author.email}</p>
+            <h3 className="text-xl font-semibold text-foreground font-cairo">{post.author.name}</h3>
+            <p className="text-muted-foreground">{post.author.email}</p>
           </div>
         </div>
       </div>

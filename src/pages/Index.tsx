@@ -26,7 +26,7 @@ const Index = () => {
         setFeaturedPosts(featuredData);
         setLatestPosts(latestData);
       } catch (err) {
-        setError('Failed to load blog posts. Please try again later.');
+        setError('فشل في تحميل المقالات. يرجى المحاولة مرة أخرى.');
         console.error('Error loading data:', err);
       } finally {
         setLoading(false);
@@ -40,13 +40,13 @@ const Index = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Oops! Something went wrong</h2>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <h2 className="text-2xl font-bold text-foreground mb-4 font-cairo">عذراً! حدث خطأ</h2>
+          <p className="text-muted-foreground mb-6">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors font-cairo"
           >
-            Try Again
+            حاول مرة أخرى
           </button>
         </div>
       </div>
@@ -54,14 +54,14 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" dir="rtl">
       {/* Hero Section */}
       <HeroSection posts={heroPosts} loading={loading} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Featured Posts */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Articles</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-8 font-cairo">المقالات المميزة</h2>
           {loading ? (
             <LoadingSpinner />
           ) : (
@@ -75,7 +75,7 @@ const Index = () => {
 
         {/* Latest Posts */}
         <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Latest Articles</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-8 font-cairo">أحدث المقالات</h2>
           {loading ? (
             <LoadingSpinner />
           ) : (

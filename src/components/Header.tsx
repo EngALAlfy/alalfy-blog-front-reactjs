@@ -25,36 +25,43 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-white shadow-sm border-b sticky top-0 z-50">
+    <header className="bg-white shadow-sm border-b sticky top-0 z-50 font-cairo">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
-            Alalfy Blog
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
-              Home
-            </Link>
-            {!loading && categories.map((category) => (
-              <Link
-                key={category.id}
-                to={`/category/${category.slug}`}
-                className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-              >
-                {category.name}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Mobile Menu Button */}
+        <div className="flex justify-between items-center h-20">
+          {/* Mobile Menu Button - Right side for RTL */}
           <button
             className="md:hidden p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
+
+          {/* Logo and Brand */}
+          <Link to="/" className="flex items-center space-x-3 space-x-reverse hover:opacity-80 transition-opacity">
+            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-xl font-amiri">ع</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-primary font-amiri">مدونة علالفي</span>
+              <span className="text-sm text-muted-foreground">المعرفة والتقنية</span>
+            </div>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-8 space-x-reverse">
+            <Link to="/" className="text-foreground hover:text-primary transition-colors font-medium py-2 border-b-2 border-transparent hover:border-primary">
+              الرئيسية
+            </Link>
+            {!loading && categories.map((category) => (
+              <Link
+                key={category.id}
+                to={`/category/${category.slug}`}
+                className="text-foreground hover:text-primary transition-colors font-medium py-2 border-b-2 border-transparent hover:border-primary"
+              >
+                {category.name}
+              </Link>
+            ))}
+          </nav>
         </div>
 
         {/* Mobile Navigation */}
@@ -63,16 +70,16 @@ const Header = () => {
             <nav className="px-4 py-4 space-y-3">
               <Link
                 to="/"
-                className="block text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                className="block text-foreground hover:text-primary transition-colors font-medium py-2 border-r-4 border-transparent hover:border-primary pr-4"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Home
+                الرئيسية
               </Link>
               {!loading && categories.map((category) => (
                 <Link
                   key={category.id}
                   to={`/category/${category.slug}`}
-                  className="block text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                  className="block text-foreground hover:text-primary transition-colors font-medium py-2 border-r-4 border-transparent hover:border-primary pr-4"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {category.name}

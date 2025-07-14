@@ -1,18 +1,21 @@
 
 import { useState, useEffect } from 'react';
-import { apiService, Post } from '@/lib/api';
+import { apiService, Post, MediumPost } from '@/lib/api';
 import HeroSection from '@/components/HeroSection';
 import PostCard from '@/components/PostCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import HireMeSection from '@/components/HireMeSection';
 import CategoryPostsSection from '@/components/CategoryPostsSection';
+import MediumPostsSection from '@/components/MediumPostsSection';
 
 const Index = () => {
   const [heroPosts, setHeroPosts] = useState<Post[]>([]);
   const [featuredPosts, setFeaturedPosts] = useState<Post[]>([]);
   const [latestPosts, setLatestPosts] = useState<Post[]>([]);
   const [categoryPosts, setCategoryPosts] = useState<Post[]>([]);
+  const [mediumPosts, setMediumPosts] = useState<MediumPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [mediumLoading, setMediumLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -38,7 +41,20 @@ const Index = () => {
       }
     };
 
+    const loadMediumPosts = async () => {
+      try {
+        setMediumLoading(true);
+        const mediumData = await apiService.fetchMediumPosts();
+        setMediumPosts(mediumData);
+      } catch (err) {
+        console.error('Error loading Medium posts:', err);
+      } finally {
+        setMediumLoading(false);
+      }
+    };
+
     loadData();
+    loadMediumPosts();
   }, []);
 
   // Group posts by category
@@ -118,6 +134,9 @@ const Index = () => {
         {/* Hire Me Section */}
         <HireMeSection />
       </div>
+
+      {/* Medium Posts Section */}
+      <MediumPostsSection posts={mediumPosts} loading={mediumLoading} />
     </div>
   );
 };

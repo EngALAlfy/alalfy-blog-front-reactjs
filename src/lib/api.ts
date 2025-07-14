@@ -31,6 +31,14 @@ export interface ApiResponse<T> {
   data: T[];
 }
 
+export interface MediumPost {
+  title: string;
+  link: string;
+  pubDate: string;
+  description: string;
+  thumbnail?: string;
+}
+
 export const apiService = {
   async fetchFeaturedPosts(): Promise<Post[]> {
     try {
@@ -125,6 +133,26 @@ export const apiService = {
     } catch (error) {
       console.error('Error fetching posts by category:', error);
       throw error;
+    }
+  },
+
+  async fetchMediumPosts(): Promise<MediumPost[]> {
+    try {
+      // Using rss2json service to convert RSS to JSON
+      const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@alalfy');
+      if (!response.ok) throw new Error('Failed to fetch Medium posts');
+      const result = await response.json();
+      
+      return result.items?.slice(0, 6).map((item: any) => ({
+        title: item.title,
+        link: item.link,
+        pubDate: item.pubDate,
+        description: item.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
+        thumbnail: item.thumbnail
+      })) || [];
+    } catch (error) {
+      console.error('Error fetching Medium posts:', error);
+      return [];
     }
   }
 };

@@ -69,13 +69,13 @@ const HireMeSection = () => {
               />
               
               {/* Floating Stats Card */}
-              <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border">
+              <div className="absolute bottom-4 right-4 bg-card backdrop-blur-sm p-4 rounded-xl shadow-lg border border-border">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                     <Code className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-foreground font-cairo">50+</div>
+                    <div className="text-2xl font-bold text-card-foreground font-cairo">50+</div>
                     <div className="text-sm text-muted-foreground font-cairo">مشروع منجز</div>
                   </div>
                 </div>

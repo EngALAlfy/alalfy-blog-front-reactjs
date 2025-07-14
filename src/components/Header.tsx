@@ -72,9 +72,11 @@ const Header = () => {
 
           {/* Logo and Brand */}
           <Link to="/" className="flex items-center space-x-3 space-x-reverse hover:opacity-80 transition-opacity">
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-primary-foreground font-bold text-lg md:text-xl font-amiri">ع</span>
-            </div>
+            <img 
+              src="/logo.png" 
+              alt="ALALFY DEV Logo" 
+              className="w-10 h-10 md:w-12 md:h-12 object-contain"
+            />
             <div className="flex flex-col">
               <span className="text-xl md:text-2xl font-bold text-primary font-amiri">ALALFY DEV.</span>
               <span className="text-xs md:text-sm text-muted-foreground hidden sm:block">المعرفة والتقنية</span>

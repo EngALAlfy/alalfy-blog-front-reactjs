@@ -62,7 +62,11 @@ const HireMeSection = () => {
           {/* Image & Stats */}
           <div className="relative">
             <div className="aspect-square bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center relative overflow-hidden">
-              <Code className="h-24 w-24 text-primary/40" />
+              <img 
+                src="/call-to-action.jpg" 
+                alt="استئجار مطور"
+                className="w-full h-full object-cover rounded-2xl"
+              />
               
               {/* Floating Stats Card */}
               <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border">

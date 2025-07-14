@@ -28,9 +28,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 space-x-reverse mb-4">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                <span className="text-primary-foreground font-bold text-xl font-amiri">ع</span>
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="ALALFY DEV Logo" 
+                className="w-10 h-10 object-contain"
+              />
               <h3 className="text-xl lg:text-2xl font-bold font-amiri">ALALFY DEV.</h3>
             </div>
             <p className="text-gray-300 mb-4 leading-relaxed">

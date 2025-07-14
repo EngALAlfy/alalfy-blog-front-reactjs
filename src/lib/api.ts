@@ -143,13 +143,22 @@ export const apiService = {
       if (!response.ok) throw new Error('Failed to fetch Medium posts');
       const result = await response.json();
       
-      return result.items?.slice(0, 6).map((item: any) => ({
-        title: item.title,
-        link: item.link,
-        pubDate: item.pubDate,
-        description: item.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
-        thumbnail: item.thumbnail
-      })) || [];
+      return result.items?.slice(0, 6).map((item: any) => {
+        // Extract first image from description if thumbnail is empty
+        let thumbnail = item.thumbnail;
+        if (!thumbnail && item.description) {
+          const imgMatch = item.description.match(/<img[^>]+src="([^">]+)"/);
+          thumbnail = imgMatch ? imgMatch[1] : '';
+        }
+        
+        return {
+          title: item.title,
+          link: item.link,
+          pubDate: item.pubDate,
+          description: item.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
+          thumbnail
+        };
+      }) || [];
     } catch (error) {
       console.error('Error fetching Medium posts:', error);
       return [];

@@ -33,7 +33,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: 92.113.24.8
-        username: u388100137.bog.alalfy.com
+        username: u388100137.blog.alalfy.com
         password: ${{ secrets.FTP_PASSWORD }}
         server-dir: /public_html/
         local-dir: dist/
